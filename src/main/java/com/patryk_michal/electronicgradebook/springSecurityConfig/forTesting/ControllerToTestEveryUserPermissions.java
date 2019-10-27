@@ -1,10 +1,10 @@
-package com.patryk_michal.electronicgradebook.ExampleControllers;
+package com.patryk_michal.electronicgradebook.springSecurityConfig.forTesting;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class ControllerToTestEveryUser {
+public class ControllerToTestEveryUserPermissions {
 
     //jak bedziemy konfigurowac Spring Security, to te metody beda widzalne w zaleznosci kto bedzie zalogowany
     //teraz mozne kazdy pod nie wbic
