@@ -1,15 +1,29 @@
 package com.patryk_michal.electronicgradebook.Model;
 
-public abstract class User {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
+@Entity
+public abstract class Person {
+
+    @Id
+    @GeneratedValue
     private int ID;
     private String login;
     private String password;
     private String name;
     private String surname;
 
-    public User(int ID, String login, String password, String name, String surname) {
+    public Person(int ID, String login, String password, String name, String surname) {
         this.ID = ID;
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+    }
+
+    public Person(String login, String password, String name, String surname) {
         this.login = login;
         this.password = password;
         this.name = name;
