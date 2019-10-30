@@ -11,7 +11,7 @@ public class ControllerToTestEveryUserPermissions {
 
     @GetMapping("/headAdmin")
     public String onlyVisibleToHeadAdmin(){
-        return "HeadAdmin";
+        return "headAdmin";
     }
 
     @GetMapping("/admin")

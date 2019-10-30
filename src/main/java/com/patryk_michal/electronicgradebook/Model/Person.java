@@ -3,8 +3,9 @@ package com.patryk_michal.electronicgradebook.Model;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
-@Entity
+@MappedSuperclass
 public abstract class Person {
 
     @Id
@@ -28,6 +29,9 @@ public abstract class Person {
         this.password = password;
         this.name = name;
         this.surname = surname;
+    }
+
+    public Person() {
     }
 
     public int getID() {
