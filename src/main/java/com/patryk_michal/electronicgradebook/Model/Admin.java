@@ -9,5 +9,6 @@ public class Admin extends Person {
         super(ID, login, password, name, surname);
     }
 
-
+    public Admin() {
+    }
 }
