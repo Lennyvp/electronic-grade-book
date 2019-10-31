@@ -1,6 +1,6 @@
 package com.patryk_michal.electronicgradebook.springSecurityConfig.forTesting;
 
-import com.patryk_michal.electronicgradebook.Model.*;
+import com.patryk_michal.electronicgradebook.model.*;
 import org.springframework.stereotype.Service;
 
 @Service
