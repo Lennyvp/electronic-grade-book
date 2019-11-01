@@ -1,5 +1,5 @@
 package com.patryk_michal.electronicgradebook.springSecurityConfig;
-
+//
 
 import org.springframework.beans.factory.annotation.Autowired;
 
