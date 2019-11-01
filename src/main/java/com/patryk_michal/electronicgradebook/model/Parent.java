@@ -1,4 +1,4 @@
-package com.patryk_michal.electronicgradebook.Model;
+package com.patryk_michal.electronicgradebook.model;
 
 import javax.persistence.Entity;
 

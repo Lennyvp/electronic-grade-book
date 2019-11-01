@@ -1,9 +1,14 @@
 package com.patryk_michal.electronicgradebook.springSecurityConfig.forTesting;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.patryk_michal.electronicgradebook.model.Admin;
+import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
+import java.util.Base64;
 
 @RestController
+@CrossOrigin
 public class ControllerToTestEveryUserPermissions {
 
     //jak bedziemy konfigurowac Spring Security, to te metody beda widzalne w zaleznosci kto bedzie zalogowany
@@ -33,7 +38,4 @@ public class ControllerToTestEveryUserPermissions {
     public String onlyVisibleToStudent(){
         return "Student";
     }
-
-
-
 }
