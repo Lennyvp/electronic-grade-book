@@ -1,68 +1,64 @@
 package com.patryk_michal.electronicgradebook.springSecurityConfig;
 
-import com.patryk_michal.electronicgradebook.springSecurityConfig.forTesting.SomeTestModels;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 
-//compile("org.springframework.boot:spring-boot-starter-security") ->dodalem zaleznosc
-
+@EnableWebSecurity
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    //paru przykladowych uzytkownikow, ktorzy sa przechowywani w pamieci
     @Autowired
-    SomeTestModels someTestModels;
-
-    //nadanie roli dla przykladowych uzytkownikow
-    @Bean
-    public UserDetailsService userDetailsService(){
-        UserDetails headAdmin = User.withDefaultPasswordEncoder()
-                .username(someTestModels.getHeadAdmin().getLogin())
-                .password(someTestModels.getHeadAdmin().getLogin())
-                .roles("HEAD_ADMIN")
-                .build();
-
-        UserDetails admin = User.withDefaultPasswordEncoder()
-                .username(someTestModels.getAdmin().getLogin())
-                .password(someTestModels.getAdmin().getPassword())
-                .roles("ADMIN")
-                .build();
-
-        UserDetails teacher = User.withDefaultPasswordEncoder()
-                .username(someTestModels.getTeacher().getLogin())
-                .password(someTestModels.getTeacher().getPassword())
-                .roles("TEACHER")
-                .build();
-        UserDetails parent = User.withDefaultPasswordEncoder()
-                .username(someTestModels.getParent().getLogin())
-                .password(someTestModels.getParent().getPassword())
-                .roles("PARENT")
-                .build();
-        UserDetails student = User.withDefaultPasswordEncoder()
-                .username(someTestModels.getStudent().getLogin())
-                .password(someTestModels.getStudent().getPassword())
-                .roles("STUDENT")
-                .build();
-
-        return new InMemoryUserDetailsManager(headAdmin,admin,teacher,parent,student);
-    }
+    JdbcTemplate jdbcTemplate;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/headAdmin").hasRole("HEAD_ADMIN")
-                .antMatchers("/admin").hasAnyRole("HEAD_ADMIN","ADMIN")
-                .antMatchers("/teacher").hasAnyRole("HEAD_ADMIN","ADMIN","TEACHER")
-                .antMatchers("/parent").hasAnyRole("HEAD_ADMIN","ADMIN","TEACHER","PARENT")
-                .antMatchers("/student").hasAnyRole("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
-                .and().formLogin().permitAll();
+                .antMatchers("/headAdmin").hasAnyAuthority("HEAD_ADMIN")
+                .antMatchers("/admin").hasAnyAuthority("HEAD_ADMIN","ADMIN")
+                .antMatchers("/teacher").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER")
+                .antMatchers("/parent").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT")
+                .antMatchers("/student").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
+                .anyRequest().permitAll()
+                .and().formLogin();
     }
+
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+
+        auth.jdbcAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT u.login, u.password, 1 from admin u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login , u.ROLE, 1 from admin u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
+
+        auth.jdbcAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT u.login,u.password,1 from head_admin u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login,u.ROLE,1 from head_admin u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
+
+        auth.jdbcAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT u.login,u.password,1 from teacher u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login,u.ROLE,1 from teacher u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
+
+        auth.jdbcAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT u.login,u.password,1 from parent u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login,u.ROLE,1 from parent u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
+
+        auth.jdbcAuthentication().passwordEncoder(NoOpPasswordEncoder.getInstance())
+                .usersByUsernameQuery("SELECT u.login,u.password,1 from student u where u.login=?")
+                .authoritiesByUsernameQuery("SELECT u.login,u.ROLE,1 from student u where u.login=?")
+                .dataSource(jdbcTemplate.getDataSource());
+
+    }
+
 }
