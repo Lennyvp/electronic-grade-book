@@ -1,6 +1,6 @@
-package com.patryk_michal.electronicgradebook.controllers;
+package com.patryk_michal.electronicgradebook.controller;
 
-import com.patryk_michal.electronicgradebook.Model.HeadAdmin;
+import com.patryk_michal.electronicgradebook.model.HeadAdmin;
 import com.patryk_michal.electronicgradebook.postgressConnection.headAdmin.HeadAdminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
