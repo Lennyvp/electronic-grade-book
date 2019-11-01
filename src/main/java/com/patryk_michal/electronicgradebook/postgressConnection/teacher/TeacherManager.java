@@ -1,6 +1,6 @@
 package com.patryk_michal.electronicgradebook.postgressConnection.teacher;
 
-import com.patryk_michal.electronicgradebook.model.Teacher;
+import com.patryk_michal.electronicgradebook.Model.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
 import org.springframework.context.event.EventListener;

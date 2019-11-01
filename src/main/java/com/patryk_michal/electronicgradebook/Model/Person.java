@@ -1,5 +1,6 @@
-package com.patryk_michal.electronicgradebook.model;
+package com.patryk_michal.electronicgradebook.Model;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
