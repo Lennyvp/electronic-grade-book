@@ -14,6 +14,7 @@ public abstract class Person {
     private String password;
     private String name;
     private String surname;
+    private String ROLE;
 
     public Person(int ID, String login, String password, String name, String surname) {
         this.ID = ID;
@@ -71,5 +72,13 @@ public abstract class Person {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public String getROLE() {
+        return ROLE;
+    }
+
+    public void setROLE(String ROLE) {
+        this.ROLE = ROLE;
     }
 }
