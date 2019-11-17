@@ -19,9 +19,9 @@ public class StudentManager {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
-        saveUser(new Student(10,"Slogin","SPassword","Sname","Ssurname"));
-        saveUser(new Student(11,"S2login","S2Password","S2name","S2surname"));
-        saveUser(new Student(12,"S3login","S3Password","S3name","S3surname"));
+        saveUser(new Student(10,"Slogin","SPassword","Sname","Ssurname","2c"));
+        saveUser(new Student(11,"S2login","S2Password","S2name","S2surname","3b"));
+        saveUser(new Student(12,"S3login","S3Password","S3name","S3surname","6a"));
     }
 
 }
