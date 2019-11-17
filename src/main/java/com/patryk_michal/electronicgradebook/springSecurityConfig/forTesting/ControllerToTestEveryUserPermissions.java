@@ -1,6 +1,10 @@
 package com.patryk_michal.electronicgradebook.springSecurityConfig.forTesting;
 
 import com.patryk_michal.electronicgradebook.model.Admin;
+import com.patryk_michal.electronicgradebook.model.Student;
+import com.patryk_michal.electronicgradebook.postgressConnection.student.StudentRepository;
+import com.patryk_michal.electronicgradebook.postgressConnection.teacher.TeacherRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +17,13 @@ public class ControllerToTestEveryUserPermissions {
 
     //jak bedziemy konfigurowac Spring Security, to te metody beda widzalne w zaleznosci kto bedzie zalogowany
     //teraz mozne kazdy pod nie wbic
+
+    @Autowired
+    StudentRepository studentRepository;
+//    @Autowired
+//    TeacherRepository teacherRepository;
+    @Autowired
+    SomeTestModels someTestModels;
 
     @GetMapping("/headAdmin")
     public String onlyVisibleToHeadAdmin(){
@@ -35,7 +46,15 @@ public class ControllerToTestEveryUserPermissions {
     }
 
     @GetMapping("/student")
-    public String onlyVisibleToStudent(){
-        return "Student";
+    public Iterable<Student> onlyVisibleToStudent(){
+        return studentRepository.findAll();
     }
+
+    @GetMapping("/studentsforEveryone")
+    public Iterable<Student> allStudents(){
+        return studentRepository.findAll();
+    }
+
+
+
 }

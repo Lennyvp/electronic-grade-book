@@ -18,6 +18,12 @@ public class Student extends Person {
         setROLE("STUDENT");
     }
 
+    public Student(String login, String password, String name, String surname, String studentClass) {
+        super(login, password, name, surname);
+        this.studentClass = studentClass;
+        setROLE("STUDENT");
+    }
+
     public Student() {
     }
 

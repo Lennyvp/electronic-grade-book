@@ -28,8 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teacher").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER")
                 .antMatchers("/parent").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT")
                 .antMatchers("/student").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
-                .anyRequest().permitAll()
-                .and().formLogin();
+                .anyRequest().permitAll().and().httpBasic()
+                .and().csrf().disable().formLogin();
     }
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception{
