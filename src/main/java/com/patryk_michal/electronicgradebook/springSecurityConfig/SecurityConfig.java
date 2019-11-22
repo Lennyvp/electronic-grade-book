@@ -28,6 +28,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/teacher").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER")
                 .antMatchers("/parent").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT")
                 .antMatchers("/student").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
+                .antMatchers("/allStudents").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
+                .antMatchers("/allTeachers").hasAnyAuthority("HEAD_ADMIN","ADMIN","TEACHER","PARENT","STUDENT")
                 .anyRequest().permitAll().and().httpBasic()
                 .and().csrf().disable().formLogin();
     }

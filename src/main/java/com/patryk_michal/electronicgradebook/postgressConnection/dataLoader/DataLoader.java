@@ -2,14 +2,15 @@ package com.patryk_michal.electronicgradebook.postgressConnection.dataLoader;
 
 import com.patryk_michal.electronicgradebook.model.Grade;
 import com.patryk_michal.electronicgradebook.model.Student;
+import com.patryk_michal.electronicgradebook.model.Subject;
 import com.patryk_michal.electronicgradebook.postgressConnection.grade.GradeRepository;
+import com.patryk_michal.electronicgradebook.postgressConnection.schoolSubjects.SubjectRepository;
 import com.patryk_michal.electronicgradebook.postgressConnection.student.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Component
@@ -20,6 +21,9 @@ public class DataLoader implements ApplicationRunner {
 
     @Autowired
     private GradeRepository gradeRepository;
+
+    @Autowired
+    private SubjectRepository subjectRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -47,7 +51,13 @@ public class DataLoader implements ApplicationRunner {
         gradeRepository.save(grade4);
         gradeRepository.save(grade5);
 
+        Subject polish = new Subject("Polski");
+        Subject english = new Subject("Angielski");
+        Subject maths = new Subject("Matematyka");
 
+        subjectRepository.save(polish);
+        subjectRepository.save(english);
+        subjectRepository.save(maths);
 
     }
 }

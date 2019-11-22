@@ -15,13 +15,9 @@ import java.util.Base64;
 @CrossOrigin
 public class ControllerToTestEveryUserPermissions {
 
-    //jak bedziemy konfigurowac Spring Security, to te metody beda widzalne w zaleznosci kto bedzie zalogowany
-    //teraz mozne kazdy pod nie wbic
-
     @Autowired
     StudentRepository studentRepository;
-//    @Autowired
-//    TeacherRepository teacherRepository;
+
     @Autowired
     SomeTestModels someTestModels;
 
