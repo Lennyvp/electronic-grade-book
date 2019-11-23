@@ -17,7 +17,7 @@ public class SomeTestModels {
         admin = new Admin(2,"admin","adminPassword","nameAdmin","surnameAdmin");
         teacher = new Teacher(3,"teacher","teacherPassword","nameTeacher","surnameTeacher");
         parent = new Parent(4,"parent","parentPassword","nameParent","surnameParent");
-//        student = new Student(5,"student","studentPassword","nameStudent","surnameStudent");
+        student = new Student(5,"student","studentPassword","nameStudent","surnameStudent","4c");
     }
 
     public HeadAdmin getHeadAdmin() {
