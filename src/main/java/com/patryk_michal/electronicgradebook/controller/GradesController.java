@@ -37,5 +37,17 @@ public class GradesController {
         }
         return studentGradesList;
     }
+
+    @GetMapping("studentGradesByLogin/{login}")
+    public Iterable<Grade> studentGrades(@PathVariable String login){
+        List<Grade> studentGradesList = new ArrayList<>();
+        for(Grade oneGrade:gradeRepository.findAll()){
+            if(oneGrade.getStudent().getLogin().equals(login)){
+                studentGradesList.add(oneGrade);
+            }
+        }
+        return studentGradesList;
+    }
+
     }
 
