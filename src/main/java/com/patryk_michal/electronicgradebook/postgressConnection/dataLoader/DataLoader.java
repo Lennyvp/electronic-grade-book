@@ -35,21 +35,9 @@ public class DataLoader implements ApplicationRunner {
         LocalDateTime localDateTime1 = LocalDateTime.of(2018,9,15,8,35,20);
         LocalDateTime localDateTime2 = LocalDateTime.of(2017,10,5,20,32);
 
-        Grade grade1 = new Grade(5,LocalDateTime.now(),student1);
-        Grade grade2 = new Grade(3,LocalDateTime.now(),student2);
-        Grade grade3 = new Grade(2,localDateTime1,student3);
-        Grade grade4 = new Grade(4,localDateTime1,student2);
-        Grade grade5 = new Grade(6,localDateTime2,student1);
-
         studentRepository.save(student1);
         studentRepository.save(student2);
         studentRepository.save(student3);
-
-        gradeRepository.save(grade1);
-        gradeRepository.save(grade2);
-        gradeRepository.save(grade3);
-        gradeRepository.save(grade4);
-        gradeRepository.save(grade5);
 
         Subject polish = new Subject("Polski");
         Subject english = new Subject("Angielski");
@@ -58,6 +46,18 @@ public class DataLoader implements ApplicationRunner {
         subjectRepository.save(polish);
         subjectRepository.save(english);
         subjectRepository.save(maths);
+
+        Grade grade1 = new Grade(5,LocalDateTime.now(),student1, polish);
+        Grade grade2 = new Grade(3,LocalDateTime.now(),student2,polish);
+        Grade grade3 = new Grade(2,localDateTime1,student3,english);
+        Grade grade4 = new Grade(4,localDateTime1,student2,maths);
+        Grade grade5 = new Grade(6,localDateTime2,student1,english);
+
+        gradeRepository.save(grade1);
+        gradeRepository.save(grade2);
+        gradeRepository.save(grade3);
+        gradeRepository.save(grade4);
+        gradeRepository.save(grade5);
 
     }
 }

@@ -1,9 +1,7 @@
 package com.patryk_michal.electronicgradebook.model;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 public class Grade {
@@ -19,13 +17,17 @@ public class Grade {
     @ManyToOne
     public Student student;
 
+    @ManyToOne
+    public Subject subject;
+
     public Grade() {
     }
 
-    public Grade(int grade, LocalDateTime dateOfIssue, Student student) {
+    public Grade(int grade, LocalDateTime dateOfIssue, Student student, Subject subject) {
         this.grade = grade;
         this.dateOfIssue = dateOfIssue;
         this.student = student;
+        this.subject = subject;
     }
 
     public int getID() {
@@ -58,5 +60,13 @@ public class Grade {
 
     public void setStudent(Student student) {
         this.student = student;
+    }
+
+    public Subject getSubject() {
+        return subject;
+    }
+
+    public void setSubject(Subject subject) {
+        this.subject = subject;
     }
 }
