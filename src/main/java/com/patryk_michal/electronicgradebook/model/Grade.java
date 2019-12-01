@@ -8,7 +8,7 @@ public class Grade {
 
     @Id
     @GeneratedValue
-    private int ID;
+    private long ID;
 
     public int grade;
 
@@ -30,7 +30,7 @@ public class Grade {
         this.subject = subject;
     }
 
-    public int getID() {
+    public long getID() {
         return ID;
     }
 
