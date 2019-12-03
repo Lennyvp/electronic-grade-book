@@ -51,7 +51,7 @@ public class GradesController {
 
     //average with all Grades
     @GetMapping("/gradesAverageInSchool")
-    public double allStudentGradesAverage(){
+    public double allStudentGradesAverage() {
         return countAllGradesAverage();
     }
 
@@ -67,14 +67,27 @@ public class GradesController {
         return countGradesAverage("Angielski");
     }
 
+    //average from Polish in all school
     @GetMapping("/gradePointAverageInPolish")
     public double gradePointAverageInPolish() {
         return countGradesAverage("Polski");
     }
 
+    //grades average in one class
+    @GetMapping("GradesAverageByClass/{myClass}")
+    public double getGradesAverageInMyClass(@PathVariable String myClass) {
+        int counter = 0;
+        double sum = 0;
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if (oneGrade.getStudent().getStudentClass().equals(myClass)) {
+                sum += oneGrade.grade;
+                counter++;
+            }
+        }
+        return sum / counter;
+    }
 
-
-    private double countGradesAverage( String subjectName){
+    private double countGradesAverage(String subjectName) {
         int counter = 0;
         double sum = 0;
         for (Grade oneGrade : gradeRepository.findAll()) {
@@ -83,20 +96,16 @@ public class GradesController {
                 counter++;
             }
         }
-        return sum /counter;
+        return sum / counter;
     }
 
-    private double countAllGradesAverage(){
+    private double countAllGradesAverage() {
         int counter = 0;
-        double sum=0;
-        for (Grade oneGrade : gradeRepository.findAll()){
+        double sum = 0;
+        for (Grade oneGrade : gradeRepository.findAll()) {
             sum += oneGrade.grade;
             counter++;
         }
-        return sum/counter;
+        return sum / counter;
     }
-
-
-
 }
-
