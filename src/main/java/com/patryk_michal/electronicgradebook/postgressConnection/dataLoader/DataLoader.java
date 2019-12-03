@@ -49,15 +49,25 @@ public class DataLoader implements ApplicationRunner {
 
         Grade grade1 = new Grade(5,LocalDateTime.now(),student1, polish);
         Grade grade2 = new Grade(3,LocalDateTime.now(),student2,polish);
-        Grade grade3 = new Grade(2,localDateTime1,student3,english);
+        Grade grade3 = new Grade(3,localDateTime1,student3,english);
         Grade grade4 = new Grade(4,localDateTime1,student2,maths);
         Grade grade5 = new Grade(6,localDateTime2,student1,english);
+        Grade grade6 = new Grade(1,LocalDateTime.now(),student1, polish);
+        Grade grade7 = new Grade(2,LocalDateTime.now(),student1, polish);
+        Grade grade8 = new Grade(3,LocalDateTime.now(),student1, polish);
+        Grade grade9 = new Grade(4,LocalDateTime.now(),student1, polish);
+        Grade grade10 = new Grade(5,LocalDateTime.now(),student1, polish);
 
         gradeRepository.save(grade1);
         gradeRepository.save(grade2);
         gradeRepository.save(grade3);
         gradeRepository.save(grade4);
         gradeRepository.save(grade5);
+        gradeRepository.save(grade6);
+        gradeRepository.save(grade7);
+        gradeRepository.save(grade8);
+        gradeRepository.save(grade9);
+        gradeRepository.save(grade10);
 
     }
 }
