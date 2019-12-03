@@ -18,7 +18,7 @@ public class GradesController {
     GradeRepository gradeRepository;
 
     @GetMapping("/allGrades")
-    public Iterable<Grade> allGrades(){
+    public Iterable<Grade> allGrades() {
         return gradeRepository.findAll();
     }
 
@@ -30,8 +30,8 @@ public class GradesController {
     @GetMapping("/studentGrades/{id}")
     public Iterable<Grade> studentGrades(@PathVariable Long id) {
         List<Grade> studentGradesList = new ArrayList<>();
-        for(Grade oneGrade:gradeRepository.findAll()){
-            if(oneGrade.getStudent().getID()==id){
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if (oneGrade.getStudent().getID() == id) {
                 studentGradesList.add(oneGrade);
             }
         }
@@ -39,15 +39,64 @@ public class GradesController {
     }
 
     @GetMapping("studentGradesByLogin/{login}")
-    public Iterable<Grade> studentGrades(@PathVariable String login){
+    public Iterable<Grade> studentGrades(@PathVariable String login) {
         List<Grade> studentGradesList = new ArrayList<>();
-        for(Grade oneGrade:gradeRepository.findAll()){
-            if(oneGrade.getStudent().getLogin().equals(login)){
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if (oneGrade.getStudent().getLogin().equals(login)) {
                 studentGradesList.add(oneGrade);
             }
         }
         return studentGradesList;
     }
 
+    //average with all Grades
+    @GetMapping("/gradesAverageInSchool")
+    public double allStudentGradesAverage(){
+        return countAllGradesAverage();
     }
+
+    //average from maths in all school
+    @GetMapping("/gradePointAverageInMathematics")
+    public double gradePointAverageInMathematics() {
+        return countGradesAverage("Matematyka");
+    }
+
+    //average from English in all school
+    @GetMapping("/gradePointAverageInEnglish")
+    public double gradePointAverageInEnglish() {
+        return countGradesAverage("Angielski");
+    }
+
+    @GetMapping("/gradePointAverageInPolish")
+    public double gradePointAverageInPolish() {
+        return countGradesAverage("Polski");
+    }
+
+
+
+    private double countGradesAverage( String subjectName){
+        int counter = 0;
+        double sum = 0;
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if (oneGrade.subject.subjectName.equals(subjectName)) {
+                sum += oneGrade.grade;
+                counter++;
+            }
+        }
+        return sum /counter;
+    }
+
+    private double countAllGradesAverage(){
+        int counter = 0;
+        double sum=0;
+        for (Grade oneGrade : gradeRepository.findAll()){
+            sum += oneGrade.grade;
+            counter++;
+        }
+        return sum/counter;
+    }
+
+
+
+}
 
