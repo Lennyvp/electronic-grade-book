@@ -29,6 +29,40 @@ public class GradesController {
 
     @GetMapping("/studentGrades/{id}")
     public Iterable<Grade> studentGrades(@PathVariable Long id) {
+        return getAllStudentGradesByStudentId(id);
+    }
+
+    @GetMapping("studentGradesByLogin/{login}")
+    public Iterable<Grade> studentGrades(@PathVariable String login) {
+        return getGradesByLogin(login);
+    }
+
+    //average with all Grades
+    @GetMapping("/gradesAverageInSchool")
+    public double allStudentGradesAverage() {
+        return countAllGradesAverage();
+    }
+
+    //average from one subject in all school
+    @GetMapping("/gradePointAverageFromSubject/{subject}")
+    public double gradePointAverageFromSubject(@PathVariable String subject) {
+        return countGradesAverage(subject);
+    }
+
+    //grades average in one class from all subjects
+    @GetMapping("gradesAverageByClass/{myClass}")
+    public double getGradesAverageInMyClass(@PathVariable String myClass) {
+        return countGradesAverageInClass(myClass);
+    }
+
+    //grades Average By One Student From One Subject
+    @GetMapping("gradesAverage/{studentLogin}/{subject}")
+    public double getGradesAverageByOneStudentFromOneSubject(@PathVariable String studentLogin, @PathVariable String subject) {
+        return countGradesAverageByOneStudentFromOneSubject(studentLogin,subject);
+    }
+
+
+    private Iterable<Grade> getAllStudentGradesByStudentId(Long id){
         List<Grade> studentGradesList = new ArrayList<>();
         for (Grade oneGrade : gradeRepository.findAll()) {
             if (oneGrade.getStudent().getID() == id) {
@@ -38,8 +72,7 @@ public class GradesController {
         return studentGradesList;
     }
 
-    @GetMapping("studentGradesByLogin/{login}")
-    public Iterable<Grade> studentGrades(@PathVariable String login) {
+    public Iterable<Grade> getGradesByLogin(String login){
         List<Grade> studentGradesList = new ArrayList<>();
         for (Grade oneGrade : gradeRepository.findAll()) {
             if (oneGrade.getStudent().getLogin().equals(login)) {
@@ -49,63 +82,23 @@ public class GradesController {
         return studentGradesList;
     }
 
-    //average with all Grades
-    @GetMapping("/gradesAverageInSchool")
-    public double allStudentGradesAverage() {
-        return countAllGradesAverage();
-    }
-
-    //average from maths in all school
-    @GetMapping("/gradePointAverageInMathematics")
-    public double gradePointAverageInMathematics() {
-        return countGradesAverage("Matematyka");
-    }
-
-    //average from English in all school
-    @GetMapping("/gradePointAverageInEnglish")
-    public double gradePointAverageInEnglish() {
-        return countGradesAverage("Angielski");
-    }
-
-    //average from Polish in all school
-    @GetMapping("/gradePointAverageInPolish")
-    public double gradePointAverageInPolish() {
-        return countGradesAverage("Polski");
-    }
-
-    //grades average in one class
-    @GetMapping("gradesAverageByClass/{myClass}")
-    public double getGradesAverageInMyClass(@PathVariable String myClass) {
-        int counter = 0;
-        double sum = 0;
-        for (Grade oneGrade : gradeRepository.findAll()) {
-            if (oneGrade.getStudent().getStudentClass().equals(myClass)) {
-                sum += oneGrade.grade;
-                counter++;
-            }
-        }
-        return sum / counter;
-    }
-
-    @GetMapping("gradesAverage/{studentLogin}/{subject}")
-    public double getGradesAverageByOneStudentFromOneSubject(@PathVariable String studentLogin, @PathVariable String subject) {
-        int counter = 0;
-        double sum = 0;
-        for (Grade oneGrade : gradeRepository.findAll()) {
-            if ((oneGrade.getStudent().getLogin().equals(studentLogin))&&(oneGrade.getSubject().subjectName.equals(subject))) {
-                sum += oneGrade.grade;
-                counter++;
-            }
-        }
-        return sum / counter;
-    }
-
-
     private double countGradesAverage(String subjectName) {
         int counter = 0;
         double sum = 0;
         for (Grade oneGrade : gradeRepository.findAll()) {
             if (oneGrade.subject.subjectName.equals(subjectName)) {
+                sum += oneGrade.grade;
+                counter++;
+            }
+        }
+        return sum / counter;
+    }
+
+    public double countGradesAverageInClass(String myClass){
+        int counter = 0;
+        double sum = 0;
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if (oneGrade.getStudent().getStudentClass().equals(myClass)) {
                 sum += oneGrade.grade;
                 counter++;
             }
@@ -122,4 +115,17 @@ public class GradesController {
         }
         return sum / counter;
     }
+
+    public double countGradesAverageByOneStudentFromOneSubject(String studentLogin, String subject){
+        int counter = 0;
+        double sum = 0;
+        for (Grade oneGrade : gradeRepository.findAll()) {
+            if ((oneGrade.getStudent().getLogin().equals(studentLogin))&&(oneGrade.getSubject().subjectName.equals(subject))) {
+                sum += oneGrade.grade;
+                counter++;
+            }
+        }
+        return sum / counter;
+    }
+
 }
