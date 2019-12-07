@@ -1,7 +1,10 @@
 package com.patryk_michal.electronicgradebook.controller;
 
+import com.patryk_michal.electronicgradebook.additionalClasses.GradesAverage;
 import com.patryk_michal.electronicgradebook.model.Grade;
+import com.patryk_michal.electronicgradebook.model.Subject;
 import com.patryk_michal.electronicgradebook.postgressConnection.grade.GradeRepository;
+import com.patryk_michal.electronicgradebook.postgressConnection.schoolSubjects.SubjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,6 +19,9 @@ public class GradesController {
 
     @Autowired
     GradeRepository gradeRepository;
+
+    @Autowired
+    SubjectRepository subjectRepository;
 
     @GetMapping("/allGrades")
     public Iterable<Grade> allGrades() {
@@ -61,6 +67,19 @@ public class GradesController {
         return countGradesAverageByOneStudentFromOneSubject(studentLogin,subject);
     }
 
+    @GetMapping("gradesAverageListFromAllSubjects/{login}")
+    public Iterable<GradesAverage> studentGradesList(@PathVariable String login){
+        return getstudentGradesList(login);
+    }
+
+    private Iterable<GradesAverage> getstudentGradesList(String login){
+        List<GradesAverage> gradesAverages = new ArrayList<>();
+        for (Subject oneSubject: subjectRepository.findAll()){
+            double averageFromSubject = countGradesAverageByOneStudentFromOneSubject(login,oneSubject.subjectName);
+            gradesAverages.add(new GradesAverage(averageFromSubject,oneSubject.subjectName));
+        }
+        return gradesAverages;
+    }
 
     private Iterable<Grade> getAllStudentGradesByStudentId(Long id){
         List<Grade> studentGradesList = new ArrayList<>();
@@ -72,7 +91,7 @@ public class GradesController {
         return studentGradesList;
     }
 
-    public Iterable<Grade> getGradesByLogin(String login){
+    private Iterable<Grade> getGradesByLogin(String login){
         List<Grade> studentGradesList = new ArrayList<>();
         for (Grade oneGrade : gradeRepository.findAll()) {
             if (oneGrade.getStudent().getLogin().equals(login)) {
@@ -94,7 +113,7 @@ public class GradesController {
         return sum / counter;
     }
 
-    public double countGradesAverageInClass(String myClass){
+    private double countGradesAverageInClass(String myClass){
         int counter = 0;
         double sum = 0;
         for (Grade oneGrade : gradeRepository.findAll()) {
@@ -116,7 +135,7 @@ public class GradesController {
         return sum / counter;
     }
 
-    public double countGradesAverageByOneStudentFromOneSubject(String studentLogin, String subject){
+    private double countGradesAverageByOneStudentFromOneSubject(String studentLogin, String subject){
         int counter = 0;
         double sum = 0;
         for (Grade oneGrade : gradeRepository.findAll()) {
@@ -124,6 +143,9 @@ public class GradesController {
                 sum += oneGrade.grade;
                 counter++;
             }
+        }
+        if(counter==0){
+            return 0;
         }
         return sum / counter;
     }
