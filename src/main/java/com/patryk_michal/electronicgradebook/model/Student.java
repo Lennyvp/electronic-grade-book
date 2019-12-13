@@ -12,17 +12,24 @@ public class Student extends Person {
 //        setROLE("STUDENT");
 //    }
 
-    public Student(int ID, String login, String password, String name, String surname, String studentClass) {
-        super(ID, login, password, name, surname);
+
+    public Student(String login, String password, String name, String surname, String SEX, String studentClass) {
+        super(login, password, name, surname, SEX);
         this.studentClass = studentClass;
         setROLE("STUDENT");
     }
 
-    public Student(String login, String password, String name, String surname, String studentClass) {
-        super(login, password, name, surname);
-        this.studentClass = studentClass;
-        setROLE("STUDENT");
-    }
+//    public Student(int ID, String login, String password, String name, String surname, String studentClass) {
+//        super(ID, login, password, name, surname);
+//        this.studentClass = studentClass;
+//        setROLE("STUDENT");
+//    }
+
+//    public Student(String login, String password, String name, String surname, String studentClass) {
+//        super(login, password, name, surname);
+//        this.studentClass = studentClass;
+//        setROLE("STUDENT");
+//    }
 
     public Student() {
     }

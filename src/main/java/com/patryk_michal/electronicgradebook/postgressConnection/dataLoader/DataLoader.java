@@ -28,9 +28,9 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        Student student1 = new Student("Slogin","SPassword","Sname","Ssurname","2c");
-        Student student2 = new Student("S2login","S2Password","S2name","S2surname","3b");
-        Student student3 = new Student("S3login","S3Password","S3name","S3surname","6a");
+        Student student1 = new Student("Slogin","SPassword","Sname","Ssurname","MALE","2c");
+        Student student2 = new Student("S2login","S2Password","S2name","S2surname","FEMALE","3b");
+        Student student3 = new Student("S3login","S3Password","S3name","S3surname","MALE","6a");
 
         LocalDateTime localDateTime1 = LocalDateTime.of(2018,9,15,8,35,20);
         LocalDateTime localDateTime2 = LocalDateTime.of(2017,10,5,20,32);
