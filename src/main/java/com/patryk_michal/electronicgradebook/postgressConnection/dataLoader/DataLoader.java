@@ -28,9 +28,13 @@ public class DataLoader implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        Student student1 = new Student("Slogin","SPassword","Sname","Ssurname","2c");
-        Student student2 = new Student("S2login","S2Password","S2name","S2surname","3b");
-        Student student3 = new Student("S3login","S3Password","S3name","S3surname","6a");
+        Student student1 = new Student("Slogin","SPassword","Anrzej","Wojciechowski","MALE","6a");
+        Student student2 = new Student("S2login","S2Password","Anna","Nowak","FEMALE","3b");
+        Student student3 = new Student("S3login","S3Password","Jan","Kowalski","MALE","6a");
+        Student student4 = new Student("S4login","S4Password","Andrzej","Wójcik","MALE","6a");
+        Student student5 = new Student("S5login","S5Password","Katarzyna","Wiśniewska","FEMALE","6a");
+        Student student6 = new Student("S6login","S6Password","Anna","Wysocka","FEMALE","6a");
+        Student student7 = new Student("S7login","S7Password","Michał","Jankowski","MALE","6a");
 
         LocalDateTime localDateTime1 = LocalDateTime.of(2018,9,15,8,35,20);
         LocalDateTime localDateTime2 = LocalDateTime.of(2017,10,5,20,32);
@@ -38,6 +42,10 @@ public class DataLoader implements ApplicationRunner {
         studentRepository.save(student1);
         studentRepository.save(student2);
         studentRepository.save(student3);
+        studentRepository.save(student4);
+        studentRepository.save(student5);
+        studentRepository.save(student6);
+        studentRepository.save(student7);
 
         Subject polish = new Subject("Polski");
         Subject english = new Subject("Angielski");

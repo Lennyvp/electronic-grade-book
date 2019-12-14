@@ -14,7 +14,16 @@ public abstract class Person {
     private String password;
     private String name;
     private String surname;
+    private String SEX;
     private String ROLE;
+
+    public Person(String login, String password, String name, String surname, String SEX) {
+        this.login = login;
+        this.password = password;
+        this.name = name;
+        this.surname = surname;
+        this.SEX = SEX;
+    }
 
     public Person(int ID, String login, String password, String name, String surname) {
         this.ID = ID;
@@ -80,5 +89,13 @@ public abstract class Person {
 
     public void setROLE(String ROLE) {
         this.ROLE = ROLE;
+    }
+
+    public String getSEX() {
+        return SEX;
+    }
+
+    public void setSEX(String SEX) {
+        this.SEX = SEX;
     }
 }
