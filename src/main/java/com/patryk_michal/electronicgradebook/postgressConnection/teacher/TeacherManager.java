@@ -18,9 +18,11 @@ public class TeacherManager {
 
     @EventListener(ApplicationReadyEvent.class)
     public void fillDB(){
-        saveUser(new Teacher(13,"Tlogin","TPassword","Tname","Tsurname"));
-        saveUser(new Teacher(14,"T2login","T2Password","T2name","T2surname"));
-        saveUser(new Teacher(15,"T3login","T3Password","T3name","T3surname"));
+        saveUser(new Teacher("Tlogin","TPassword","Tname","Tsurname","FEMALE"));
+        saveUser(new Teacher("T2login","T2Password","T2name","T2surname","FEMALE"));
+        saveUser(new Teacher("T3login","T3Password","T3name","T3surname","MALE"));
+        saveUser(new Teacher("T4login","T4Password","T4name","T4surname","FEMALE"));
+        saveUser(new Teacher("T5login","T5Password","T5name","T5surname","FEMALE"));
     }
 
 }
